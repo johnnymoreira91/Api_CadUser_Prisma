@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "outDir": "./dist",
+    "module": "commonjs",
+    "target": "es2017",
+    "strict": true,
+    "lib": ["es2017"],
+    "esModuleInterop": true,
+    "strictNullChecks": true,
+    "moduleResolution": "node" 
+  }
+}
