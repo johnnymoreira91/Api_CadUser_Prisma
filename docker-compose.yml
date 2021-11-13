@@ -1,0 +1,48 @@
+version: "3" ## especifica a versão do docker-compose file
+
+services: ## Define um serviço
+  dbPostegres:
+    image: postgres:latest
+    container_name: "postgres-cadUser"
+    environment:
+      - POSTGRES_DB=cadUser
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+    volumes:
+      - "./data/postgres:/var/lib/docker/postgresql/data"
+    networks:
+      backend:
+        ipv4_address: 172.30.0.3
+    ports:
+      - 5432:5432
+    deploy:
+      resources:
+        limits:
+          memory: 4096M
+          cpus: '1.5'
+        reservations:
+          memory: 2048M
+
+  redis:
+    image: redis
+    command: redis-server 
+    # --requirepass Redis2019!
+    networks:
+      backend:
+        ipv4_address: 172.30.0.2
+    ports:
+      - "6379:6379"
+    deploy:
+      resources:
+        limits:
+          memory: 4096M
+          cpus: '1.5'
+        reservations:
+          memory: 2048M
+
+networks: 
+  backend:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.0.0/16
